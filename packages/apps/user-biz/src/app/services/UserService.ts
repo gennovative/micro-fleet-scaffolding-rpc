@@ -4,7 +4,7 @@ const debug: debug.IDebugger = require('debug')('scaffold:svc:user')
 // import { cacheable } from '@micro-fleet/cache'
 import { Maybe, decorators as d, PagedData } from '@micro-fleet/common'
 import { Types as iT, IIdProvider } from '@micro-fleet/id-generator'
-import { Types as pT, AtomicSessionFactory, RepositoryFindOptions } from '@micro-fleet/persistence'
+import { Types as pT, AtomicSessionFactory } from '@micro-fleet/persistence'
 
 import { Types as T } from '../constants/Types'
 import * as dto from '../contracts/dto/user'
@@ -52,7 +52,7 @@ export class UserService
 	 */
 	protected async $checkCreateViolation(params: dto.CreateUserRequest): Promise<Maybe<string>> {
 		if (await this.$repo.exists({ name: params.name })) {
-			return Maybe.Just('TENANT_NOT_EXISTING')
+			return Maybe.Just('USERNAME_ALREADY_EXISTS')
 		}
 		return Maybe.Nothing()
 	}
@@ -67,13 +67,6 @@ export class UserService
 	 */
 	public edit(params: dto.EditUserRequest): Promise<dto.EditUserResponse> {
 		return this.$edit(params, dto.EditUserResponse)
-	}
-
-	/**
-	 * @override
-	 */
-	protected $checkEditViolation(params: dto.EditUserRequest): Promise<Maybe> {
-		return Promise.resolve(Maybe.Nothing())
 	}
 
 	//#endregion Edit
@@ -101,13 +94,6 @@ export class UserService
 		)
 	}
 
-	/**
-	 * @override
-	 */
-	protected $checkDeleteManyViolation(params: dto.DeleteUserRequest): Promise<Maybe> {
-		return Promise.resolve(Maybe.Nothing())
-	}
-
 	//#endregion Delete
 
 
@@ -117,11 +103,7 @@ export class UserService
 	 * @see IUserService.getById
 	 */
 	public getById(params: dto.GetUserByIdRequest): Promise<dto.GetSingleUserResponse> {
-		const repoParams: dto.GetUserByIdRequest & RepositoryFindOptions = this._rebuildGetParams(params)
-		return this.$getById(
-			repoParams,
-			dto.GetSingleUserResponse,
-		)
+		return this.$getById(params, dto.GetSingleUserResponse)
 	}
 
 	/**
@@ -144,21 +126,6 @@ export class UserService
 	public getList(params: dto.GetUserListRequest): Promise<dto.GetUserListResponse> {
 		debug('UserService.getList')
 		return this.$getList(params, dto.GetUserListResponse)
-	}
-
-	private _rebuildGetParams<U extends { fields?: string[] }>(params: U): U & RepositoryFindOptions {
-		if (params.fields && params.fields.includes('tenantName')) {
-			return {
-				...params,
-				// Remove "tenantName" because it isn't a table column
-				fields: params.fields.filter((f) => f !== 'tenantName'),
-				// ObjectionJS relation object expression
-				relations: {
-					tenant: ['name'],
-				},
-			}
-		}
-		return params
 	}
 
 	//#endregion Get

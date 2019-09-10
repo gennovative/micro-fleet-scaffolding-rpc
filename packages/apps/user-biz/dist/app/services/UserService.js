@@ -46,7 +46,7 @@ let UserService = class UserService extends ManagementServiceBase_1.ManagementSe
      */
     async $checkCreateViolation(params) {
         if (await this.$repo.exists({ name: params.name })) {
-            return common_1.Maybe.Just('TENANT_NOT_EXISTING');
+            return common_1.Maybe.Just('USERNAME_ALREADY_EXISTS');
         }
         return common_1.Maybe.Nothing();
     }
@@ -57,12 +57,6 @@ let UserService = class UserService extends ManagementServiceBase_1.ManagementSe
      */
     edit(params) {
         return this.$edit(params, dto.EditUserResponse);
-    }
-    /**
-     * @override
-     */
-    $checkEditViolation(params) {
-        return Promise.resolve(common_1.Maybe.Nothing());
     }
     //#endregion Edit
     //#region Delete
@@ -78,20 +72,13 @@ let UserService = class UserService extends ManagementServiceBase_1.ManagementSe
     hardDeleteMany(params) {
         return this.$hardDeleteMany(params, dto.DeleteUserResponse);
     }
-    /**
-     * @override
-     */
-    $checkDeleteManyViolation(params) {
-        return Promise.resolve(common_1.Maybe.Nothing());
-    }
     //#endregion Delete
     //#region Get
     /**
      * @see IUserService.getById
      */
     getById(params) {
-        const repoParams = this._rebuildGetParams(params);
-        return this.$getById(repoParams, dto.GetSingleUserResponse);
+        return this.$getById(params, dto.GetSingleUserResponse);
     }
     /**
      * @see IUserService.getActiveList
@@ -111,20 +98,6 @@ let UserService = class UserService extends ManagementServiceBase_1.ManagementSe
     getList(params) {
         debug('UserService.getList');
         return this.$getList(params, dto.GetUserListResponse);
-    }
-    _rebuildGetParams(params) {
-        if (params.fields && params.fields.includes('tenantName')) {
-            return {
-                ...params,
-                // Remove "tenantName" because it isn't a table column
-                fields: params.fields.filter((f) => f !== 'tenantName'),
-                // ObjectionJS relation object expression
-                relations: {
-                    tenant: ['name'],
-                },
-            };
-        }
-        return params;
     }
 };
 UserService = __decorate([
