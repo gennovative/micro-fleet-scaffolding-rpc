@@ -1,0 +1,41 @@
+{
+	"name": "micro-fleet-user-rest-service",
+	"version": "1.0.0",
+	"description": "Project scaffolding for MicroFleet framework, demonstrating an internal business service.",
+	"scripts": {
+		"dev": "cross-env DEBUG=scaffold:*,mcft:persistence:* nodemon --watch dist/app dist/app/server.js",
+		"start": "node ./dist/app/server.js",
+		"build": "npm run clean && npm run lint && npm run copysrc && tsc --pretty",
+		"watch": "npm run clean && npm run lint && npm run copysrc && tsc --watch --pretty",
+		"lint": "tslint --fix -p tsconfig.json --exclude '**/*.d.ts'",
+		"copysrc": "node scripts/copySrc.js",
+		"clean": "rimraf dist coverage .nyc_output"
+	},
+	"dependencies": {
+		"@micro-fleet/cache": "^2.3.0-rc3",
+		"@micro-fleet/common": "=2.3.0-rc3",
+		"@micro-fleet/microservice": "=2.3.0-rc3",
+		"@micro-fleet/service-communication": "=2.3.0-rc4",
+		"@micro-fleet/web": "=2.3.0-rc3"
+	},
+	"devDependencies": {
+		"@types/debug": "~4.1",
+		"@types/express": "~4.17",
+		"@types/hapi__joi": "~15.0",
+		"@types/node": "~10.14",
+		"cross-env": "~5.2",
+		"nodemon": "~1.19",
+		"rimraf": "~3.0",
+		"tslint": "~5.20",
+		"typescript": "~3.6"
+	},
+	"author": {
+		"name": "gennovative",
+		"url": "https://github.com/gennovative"
+	},
+	"engines": {
+		"node": ">=10.4.0"
+	},
+	"repository": "git@github.com:gennovative/micro-fleet-scaffolding-advanced-monolith.git",
+	"private": true
+}

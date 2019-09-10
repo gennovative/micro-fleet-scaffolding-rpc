@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "packages\\apps\\user-biz"
+		},
+		{
+			"path": "packages\\apps\\user-rest"
+		}
+	]
+}

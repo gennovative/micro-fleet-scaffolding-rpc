@@ -1,0 +1,14 @@
+[submodule "packages/apps/admin-rest"]
+	path = packages/apps/admin-rest
+	url = git@bitbucket.org:firstinteractive/event-checkin-admin-rest.git
+
+[submodule "packages/apps/admin-web"]
+	path = packages/apps/admin-web
+	url = git@bitbucket.org:firstinteractive/event-checkin-admin-web.git
+
+[submodule "packages/apps/welcome-electron"]
+	path = packages/apps/welcome-electron
+	url = git@bitbucket.org:firstinteractive/event-checkin-welcome-electron.git
+[submodule "packages/apps/scanner-pwa"]
+	path = packages/apps/scanner-pwa
+	url = git@bitbucket.org:firstinteractive/event-checkin-scanner-pwa.git

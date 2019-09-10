@@ -1,0 +1,32 @@
+{
+	"name": "micro-fleet-service-rpc-monorepo",
+	"version": "1.0.0",
+	"description": "Project scaffolding for MicroFleet framework, demonstrating remote procedure calls (RPC) amongst services.",
+	"scripts": {
+		"clean": "lerna run clean",
+		"dev": "lerna run dev",
+		"start": "lerna run start",
+		"build": "lerna run build",
+		"dedup": "lerna run dedup",
+		"test": "lerna run test",
+		"lint": "lerna run lint",
+		"linkPackages": "node ./scripts/linkPackages.js"
+	},
+	"devDependencies": {
+		"chalk": "~2.4",
+		"fs-extra": "~8.1",
+		"knex": "~0.19",
+		"lerna": "~3.16",
+		"moment": "~2.24",
+		"objection": "~1.6",
+		"pg": "~7.12",
+		"ts-declarator": "~1.0",
+		"typescript": "~3.6"
+	},
+	"author": {
+		"name": "gennovative",
+		"url": "https://github.com/gennovative"
+	},
+	"repository": "git@github.com:gennovative/micro-fleet-scaffolding-rpc.git",
+	"private": true
+}
