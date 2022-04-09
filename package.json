@@ -17,7 +17,7 @@
 		"fs-extra": "~8.1",
 		"knex": "~0.19",
 		"lerna": "~3.16",
-		"moment": "~2.24",
+		"moment": "~2.29",
 		"objection": "~1.6",
 		"pg": "~7.12",
 		"ts-declarator": "~1.0",
