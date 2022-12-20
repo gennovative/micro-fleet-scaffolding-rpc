@@ -15,10 +15,10 @@
 	"devDependencies": {
 		"chalk": "~2.4",
 		"fs-extra": "~8.1",
-		"knex": "~0.19",
+		"knex": "~2.3",
 		"lerna": "~3.16",
 		"moment": "~2.24",
-		"objection": "~1.6",
+		"objection": "~3.0",
 		"pg": "~7.12",
 		"ts-declarator": "~1.0",
 		"typescript": "~3.6"
